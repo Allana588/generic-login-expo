@@ -32,4 +32,7 @@ Para gerar um APK instalável, siga as instruções do documento `report_theory.
 
 ## Prints das Telas
 
-[Insira aqui as imagens das telas do seu aplicativo]
+## Prints das Telas
+![Tela Inicial](./prints/Screenshot_20260602_182043_generic_login.jpg)
+
+
