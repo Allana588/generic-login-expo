@@ -1,62 +1,32 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
+import Animated, { FadeInRight } from "react-native-reanimated";
 
 export default function Home() {
   const router = useRouter();
+  const menuItems = [
+    { title: "História da Radioatividade", route: "/history", color: "#a855f7" }, // Roxo
+    { title: "Fusão e Fissão Nuclear", route: "/fusion_fission", color: "#f97316" }, // Laranja
+    { title: "Fontes de Radiação", route: "/sources", color: "#22c55e" }, // Verde
+    { title: "Nomes Importantes", route: "/important_names", color: "#3b82f6" }, // Azul
+    { title: "Aplicações da Radiação", route: "/applications", color: "#ef4444" }, // Vermelho
+    // { title: "Quiz", route: "/quiz", color: "#eab308" }, // Amarelo - Futuro
+    // { title: "Simulação", route: "/simulation", color: "#6366f1" }, // Índigo - Futuro
+  ];
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>☢️ Tipos de Radiação</Text>
-
-     
-      <TouchableOpacity 
-        style={[styles.card, styles.alpha]}
-        activeOpacity={0.8}
-        onPress={() => router.push("/details")}
-      >
-        <Text style={styles.cardTitle}>Radiação Alfa (α)</Text>
-        <Text style={styles.text}>Baixa penetração</Text>
-      </TouchableOpacity>
-
-     
-      <TouchableOpacity 
-        style={[styles.card, styles.beta]}
-        activeOpacity={0.8}
-        onPress={() => router.push("/details")}
-      >
-        <Text style={styles.cardTitle}>Radiação Beta (β)</Text>
-        <Text style={styles.text}>Penetração média</Text>
-      </TouchableOpacity>
-
-      
-      <TouchableOpacity 
-        style={[styles.card, styles.gamma]}
-        activeOpacity={0.8}
-        onPress={() => router.push("/details")}
-      >
-        <Text style={styles.cardTitle}>Radiação Gama (γ)</Text>
-        <Text style={styles.text}>Alta energia</Text>
-      </TouchableOpacity>
-
-
-      <TouchableOpacity 
-        style={[styles.card, styles.sources]}
-        activeOpacity={0.8}
-        onPress={() => router.push("/sources" as any)}
-      >
-        <Text style={styles.cardTitle}>Fontes de Radiação</Text>
-        <Text style={styles.text}>Onde a radiação é encontrada</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity 
-        style={[styles.card, styles.applications]}
-        activeOpacity={0.8}
-        onPress={() => router.push("/applications" as any)}
-      >
-        <Text style={styles.cardTitle}>Aplicações da Radiação</Text>
-        <Text style={styles.text}>Usos benéficos da radiação</Text>
-      </TouchableOpacity>
-
+      <Text style={styles.title}>☢️ Mundo Nuclear</Text>
+      {menuItems.map((item, index) => (
+        <Animated.View key={index} entering={FadeInRight.delay(index * 100).duration(500)}>
+          <TouchableOpacity 
+            style={[styles.card, { borderLeftColor: item.color }]} 
+            onPress={() => router.push(item.route as any)}
+          >
+            <Text style={styles.cardTitle}>{item.title}</Text>
+          </TouchableOpacity>
+        </Animated.View>
+      ))}
     </View>
   );
 }
@@ -69,54 +39,27 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   title: {
-    fontSize: 26,
+    fontSize: 30,
     color: "#facc15",
-    fontWeight: "600",
+    fontWeight: "bold",
     textAlign: "center",
     marginBottom: 30,
-    letterSpacing: 1,
   },
   card: {
     backgroundColor: "#0f172a",
     padding: 20,
-    borderRadius: 16,
-    marginBottom: 18,
-    borderWidth: 1,
-    borderColor: "#1e293b",
+    borderRadius: 15,
+    marginBottom: 15,
+    borderLeftWidth: 6,
+    elevation: 5,
     shadowColor: "#000",
-    shadowOpacity: 0.3,
-    shadowRadius: 6,
-    elevation: 4,
-  },
-  alpha: {
-    borderLeftWidth: 5,
-    borderLeftColor: "#22c55e",
-  },
-  beta: {
-    borderLeftWidth: 5,
-    borderLeftColor: "#3b82f6",
-  },
-  gamma: {
-    borderLeftWidth: 5,
-    borderLeftColor: "#ef4444",
-  },
-  
-  sources: {
-    borderLeftWidth: 5,
-    borderLeftColor: "#f97316", // Laranja
-  },
-  applications: {
-    borderLeftWidth: 5,
-    borderLeftColor: "#8b5cf6", // Roxo
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
   },
   cardTitle: {
-    color: "#facc15",
+    color: "#fff",
     fontSize: 18,
-    fontWeight: "600",
-    marginBottom: 5,
-  },
-  text: {
-    color: "#cbd5f5",
-    fontSize: 14,
+    fontWeight: "bold",
   },
 });

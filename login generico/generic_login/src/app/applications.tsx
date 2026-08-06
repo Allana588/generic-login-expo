@@ -1,35 +1,42 @@
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import Animated, { FadeInDown } from 'react-native-reanimated';
 
-export default function Applications() {
+export default function ApplicationsScreen() {
   return (
-    <ScrollView
-      style={styles.container}
-      showsVerticalScrollIndicator={false}
-    >
-      <Text style={styles.title}>Aplicações da Radiação</Text>
-      <View style={[styles.card, styles.medicine]}>
-        <Text style={styles.cardTitle}>Medicina</Text>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      <Animated.Text entering={FadeInDown.duration(500)} style={styles.title}>Aplicações e Incidentes da Radiação</Animated.Text>
+
+      <Animated.View entering={FadeInDown.delay(200).duration(600)} style={styles.card}>
+        <Text style={styles.cardTitle}>🏥 Medicina Nuclear</Text>
         <Text style={styles.text}>
-          Na medicina, a radiação é usada em diagnósticos (raio-X, tomografia, medicina nuclear) e tratamentos (radioterapia para câncer), salvando vidas e melhorando a qualidade de vida.
+          A radiação é essencial em diagnósticos (raio-X, PET scans) e tratamentos (radioterapia para câncer), 
+          salvando milhões de vidas anualmente.
         </Text>
-      </View>
-      <View style={[styles.card, styles.industry]}>
-        <Text style={styles.cardTitle}>Indústria</Text>
+      </Animated.View>
+
+      <Animated.View entering={FadeInDown.delay(400).duration(600)} style={styles.card}>
+        <Text style={styles.cardTitle}>🏭 Indústria e Agricultura</Text>
         <Text style={styles.text}>
-          Na indústria, a radiação é empregada para esterilização de equipamentos, controle de qualidade de produtos, medição de espessuras e densidades, e na conservação de alimentos.
+          Usada para esterilizar equipamentos médicos, conservar alimentos, controlar pragas e em medidores de nível 
+          e espessura em processos industriais.
         </Text>
-      </View>
-      <View style={[styles.card, styles.agriculture]}>
-        <Text style={styles.cardTitle}>Agricultura</Text>
-        <Text style={styles.text}>
-          Na agricultura, a radiação é utilizada para melhorar sementes, controlar pragas, prolongar a vida útil de alimentos e rastrear nutrientes no solo, contribuindo para a segurança alimentar.
+      </Animated.View>
+
+      <Animated.View entering={FadeInDown.delay(600).duration(600)} style={styles.cardIncident}>
+        <Text style={styles.cardTitleIncident}>💣 Bomba de Hiroshima (1945)</Text>
+        <Text style={styles.textIncident}>
+          Um dos eventos mais trágicos da história, a bomba atômica lançada sobre Hiroshima demonstrou o poder 
+          destrutivo da fissão nuclear, causando devastação e milhares de mortes imediatas e a longo prazo.
         </Text>
-      </View>
-      <View style={styles.infoBox}>
-        <Text style={styles.infoText}>
-          🌱 A radiação tem diversas aplicações benéficas para a humanidade!
+      </Animated.View>
+
+      <Animated.View entering={FadeInDown.delay(800).duration(600)} style={styles.cardIncident}>
+        <Text style={styles.cardTitleIncident}>☢️ Acidente de Goiânia (1987)</Text>
+        <Text style={styles.textIncident}>
+          Um dos maiores acidentes radiológicos do mundo, causado pelo descarte inadequado de uma cápsula de Césio-137. 
+          Resultou em mortes, contaminação e a necessidade de uma vasta operação de descontaminação.
         </Text>
-      </View>
+      </Animated.View>
     </ScrollView>
   );
 }
@@ -37,63 +44,62 @@ export default function Applications() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#020617",
-    padding: 16,
+    backgroundColor: '#020617',
+    padding: 20,
   },
   title: {
-    fontSize: 26,
-    color: "#facc15",
-    fontWeight: "600",
-    textAlign: "center",
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#facc15',
+    textAlign: 'center',
     marginBottom: 25,
-    letterSpacing: 1,
   },
   card: {
-    padding: 18,
-    borderRadius: 16,
-    marginBottom: 16,
-    backgroundColor: "#0f172a",
-    borderWidth: 1,
-    borderColor: "#1e293b",
-    shadowColor: "#000",
-    shadowOpacity: 0.3,
-    shadowRadius: 6,
-    elevation: 4,
+    backgroundColor: '#0f172a',
+    padding: 20,
+    borderRadius: 15,
+    marginBottom: 15,
+    borderLeftWidth: 5,
+    borderLeftColor: '#22c55e',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
-  medicine: {
-    borderLeftWidth: 4,
-    borderLeftColor: "#22c55e", // verde
-  },
-  industry: {
-    borderLeftWidth: 4,
-    borderLeftColor: "#3b82f6", // azul
-  },
-  agriculture: {
-    borderLeftWidth: 4,
-    borderLeftColor: "#ef4444", // vermelho
+  cardIncident: {
+    backgroundColor: '#440000',
+    padding: 20,
+    borderRadius: 15,
+    marginBottom: 15,
+    borderLeftWidth: 5,
+    borderLeftColor: '#ff0000',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   cardTitle: {
-    color: "#facc15",
-    fontSize: 18,
-    fontWeight: "600",
-    marginBottom: 8,
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#facc15',
+    marginBottom: 10,
+  },
+  cardTitleIncident: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#ffcccc',
+    marginBottom: 10,
   },
   text: {
-    color: "#e5e7eb",
-    fontSize: 15,
-    lineHeight: 22,
+    fontSize: 16,
+    color: '#e2e8f0',
+    lineHeight: 24,
   },
-  infoBox: {
-    backgroundColor: "#022c22",
-    padding: 18,
-    borderRadius: 16,
-    marginTop: 10,
-    borderWidth: 1,
-    borderColor: "#065f46",
-  },
-  infoText: {
-    color: "#4ade80",
-    textAlign: "center",
-    fontSize: 14,
+  textIncident: {
+    fontSize: 16,
+    color: '#ffdddd',
+    lineHeight: 24,
   },
 });
