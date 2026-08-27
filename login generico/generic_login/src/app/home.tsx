@@ -65,9 +65,11 @@
 // });
 import { View, Text, Pressable, Alert } from 'react-native';
 import { useAuth } from '../hooks/useAuth';
+import { useRouter } from 'expo-router';
 
 export default function _Home() {
   const { user, logout } = useAuth();
+  const router = useRouter();
 
   const handleLogout = async () => {
     try {
@@ -83,6 +85,13 @@ export default function _Home() {
         Olá, {user?.first_name || user?.email}!
       </Text>
       <Text>Bem-vindo ao sistema.</Text>
+
+    <Pressable 
+      onPress={() => router.push('/profile')} 
+      style={{ backgroundColor: '#007AFF', padding: 15, borderRadius: 8, marginTop: 20, width: '100%', alignItems: 'center' }}
+>
+      <Text style={{ color: 'white', fontWeight: 'bold' }}>Editar Perfil</Text>
+     </Pressable>
 
       <Pressable 
         onPress={handleLogout} 
