@@ -64,7 +64,7 @@
 //   },
 // });
 import { View, Text, Pressable, Alert } from 'react-native';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '../hooks/useAuth';
 
 export default function _Home() {
   const { user, logout } = useAuth();

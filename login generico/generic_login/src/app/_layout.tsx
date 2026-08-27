@@ -1,7 +1,7 @@
 
 import { Stack, useRouter, useSegments } from 'expo-router';
 import { useContext, useEffect } from 'react';
-import { AuthProvider, AuthContext } from '@/contexts/AuthContext';
+import { AuthProvider, AuthContext } from '../contexts/AuthContext';
 
 function ProtectedStack() {
   const { user, isLoading } = useContext(AuthContext);

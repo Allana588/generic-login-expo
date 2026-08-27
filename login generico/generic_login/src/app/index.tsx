@@ -94,7 +94,7 @@ import { useState } from 'react';
 import { View, Text, Pressable, ActivityIndicator, Alert, ScrollView } from 'react-native';
 import { Redirect } from 'expo-router';
 import { useAuth } from '@/hooks/useAuth';
-import MeuInput from './components/input'; // Seu input customizado
+import {MeuInput} from './components/input'; // Seu input customizado
 
 export default function Index() {
   const { user, login, isLoading: isAuthLoading } = useAuth();
