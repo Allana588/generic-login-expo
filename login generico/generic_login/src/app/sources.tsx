@@ -1,29 +1,49 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native";
+import Animated, { FadeInDown } from "react-native-reanimated";
 
-export default function Sources() {
+export default function SourcesScreen() {
   return (
     <ScrollView
       style={styles.container}
+      contentContainerStyle={styles.contentContainer}
       showsVerticalScrollIndicator={false}
     >
-      <Text style={styles.title}>Fontes de Radiação</Text>
-      <View style={[styles.card, styles.natural]}>
-        <Text style={styles.cardTitle}>Fontes Naturais</Text>
+      <Animated.Text entering={FadeInDown.duration(400)} style={styles.title}>
+        Fontes de Radiação
+      </Animated.Text>
+      <Animated.Text entering={FadeInDown.delay(100).duration(400)} style={styles.subtitle}>
+        A radiação que nos cerca tem origens naturais e artificiais produzidas pelo ser humano.
+      </Animated.Text>
+
+      <Animated.View entering={FadeInDown.delay(200).duration(500)} style={[styles.card, styles.natural]}>
+        <Text style={styles.cardTitle}>🌱 Fontes Naturais (Fundo Natural)</Text>
         <Text style={styles.text}>
-          A radiação natural está presente em nosso dia a dia, vinda do espaço, do solo (elementos radioativos como urânio ) e até mesmo de alimentos e do nosso próprio corpo.
+          A radiação natural sempre esteve presente no universo e na Terra. Ela provém de:
         </Text>
-      </View>
-      <View style={[styles.card, styles.artificial]}>
-        <Text style={styles.cardTitle}>Fontes Artificiais</Text>
+        <View style={styles.bulletList}>
+          <Text style={styles.bulletItem}>• <Text style={styles.bold}>Raios Cósmicos:</Text> Partículas de alta energia vindas do espaço profundo e do Sol.</Text>
+          <Text style={styles.bulletItem}>• <Text style={styles.bold}>Radiação Terrestre:</Text> Minerais presentes na crosta terrestre, como Urânio, Tório e Gás Radônio.</Text>
+          <Text style={styles.bulletItem}>• <Text style={styles.bold}>Corpo Humano & Alimentos:</Text> Contemos isótopos naturais como o Potássio-40 (abundante na banana) e Carbono-14.</Text>
+        </View>
+      </Animated.View>
+
+      <Animated.View entering={FadeInDown.delay(400).duration(500)} style={[styles.card, styles.artificial]}>
+        <Text style={styles.cardTitle}>⚙️ Fontes Artificiais (Criadas pelo Homem)</Text>
         <Text style={styles.text}>
-          As fontes artificiais de radiação são criadas pelo homem e incluem equipamentos médicos (raio-X, tomografia), usinas nucleares, detectores de fumaça e alguns produtos de consumo.
+          Desenvolvidas a partir do domínio científico e tecnológico:
         </Text>
-      </View>
-      <View style={styles.infoBox}>
+        <View style={styles.bulletList}>
+          <Text style={styles.bulletItem}>• <Text style={styles.bold}>Diagnóstico e Terapia:</Text> Aparelhos de Raio-X, Tomografias Computadorizadas e Radioterapia.</Text>
+          <Text style={styles.bulletItem}>• <Text style={styles.bold}>Geração de Energia:</Text> Reatores em usinas nucleares operando por fissão atômica.</Text>
+          <Text style={styles.bulletItem}>• <Text style={styles.bold}>Indústria e Cotidiano:</Text> Detectores de fumaça iônicos (Amerício-241) e conservação de alimentos.</Text>
+        </View>
+      </Animated.View>
+
+      <Animated.View entering={FadeInDown.delay(600).duration(500)} style={styles.infoBox}>
         <Text style={styles.infoText}>
-          🌍 A maior parte da radiação a que somos expostos é de origem natural!
+          🌍 <Text style={styles.bold}>Curiosidade:</Text> Mais de 80% de toda a dose anual de radiação que uma pessoa comum recebe vem de fontes naturais ao nosso redor!
         </Text>
-      </View>
+      </Animated.View>
     </ScrollView>
   );
 }
@@ -32,58 +52,82 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#020617",
-    padding: 16,
+  },
+  contentContainer: {
+    padding: 20,
+    paddingBottom: 40,
   },
   title: {
-    fontSize: 26,
+    fontSize: 28,
     color: "#facc15",
-    fontWeight: "600",
+    fontWeight: "bold",
     textAlign: "center",
-    marginBottom: 25,
-    letterSpacing: 1,
+    marginBottom: 8,
+  },
+  subtitle: {
+    fontSize: 14,
+    color: "#94a3b8",
+    textAlign: "center",
+    lineHeight: 20,
+    marginBottom: 24,
   },
   card: {
-    padding: 18,
+    padding: 20,
     borderRadius: 16,
     marginBottom: 16,
     backgroundColor: "#0f172a",
     borderWidth: 1,
     borderColor: "#1e293b",
     shadowColor: "#000",
-    shadowOpacity: 0.3,
-    shadowRadius: 6,
+    shadowOpacity: 0.25,
+    shadowRadius: 5,
     elevation: 4,
   },
   natural: {
-    borderLeftWidth: 4,
-    borderLeftColor: "#22c55e", // verde
+    borderLeftWidth: 5,
+    borderLeftColor: "#22c55e",
   },
   artificial: {
-    borderLeftWidth: 4,
-    borderLeftColor: "#3b82f6", // azul
+    borderLeftWidth: 5,
+    borderLeftColor: "#3b82f6",
   },
   cardTitle: {
     color: "#facc15",
-    fontSize: 18,
-    fontWeight: "600",
-    marginBottom: 8,
+    fontSize: 19,
+    fontWeight: "bold",
+    marginBottom: 10,
   },
   text: {
-    color: "#e5e7eb",
+    color: "#e2e8f0",
     fontSize: 15,
     lineHeight: 22,
+    marginBottom: 8,
+  },
+  bulletList: {
+    gap: 6,
+    marginTop: 4,
+  },
+  bulletItem: {
+    color: "#cbd5e1",
+    fontSize: 14,
+    lineHeight: 20,
+  },
+  bold: {
+    fontWeight: "bold",
+    color: "#f8fafc",
   },
   infoBox: {
     backgroundColor: "#022c22",
     padding: 18,
-    borderRadius: 16,
-    marginTop: 10,
+    borderRadius: 14,
+    marginTop: 8,
     borderWidth: 1,
     borderColor: "#065f46",
   },
   infoText: {
-    color: "#4ade80",
+    color: "#86efac",
     textAlign: "center",
     fontSize: 14,
+    lineHeight: 20,
   },
 });

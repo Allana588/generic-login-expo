@@ -1,7 +1,7 @@
 import { createContext, useCallback, useEffect, useMemo, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import type { AuthContextType, LoginCredentials, RegisterData, User } from '@/app/types/auth';
-import { loginUser, registerUser, fetchUser } from '@/app/services/auth';
+import type { AuthContextType, LoginCredentials, RegisterData, User } from '@/types/auth';
+import { loginUser, registerUser, fetchUser } from '@/services/auth';
 
 export const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
@@ -15,7 +15,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     (async () => {
       try {
-        // API v3 do AsyncStorage (Bug 3)
         const stored = await AsyncStorage.getMany([
           '@access_token',
           '@refresh_token',
@@ -45,7 +44,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       } catch {
         // Se der erro ao ler storage, não faz nada (user continua null)
       } finally {
-        setIsLoading(false); // CRUCIAL: tira o app do estado de loading
+        setIsLoading(false);
       }
     })();
   }, []);
@@ -54,14 +53,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const login = useCallback(async (credentials: LoginCredentials) => {
     const tokens = await loginUser(credentials);
     
-    // ORDEM IMPORTANTE: Salvar no storage ANTES de fetchUser
     await AsyncStorage.setItem('@access_token', tokens.access);
     await AsyncStorage.setItem('@refresh_token', tokens.refresh);
     
     setAccessToken(tokens.access);
     setRefreshToken(tokens.refresh);
     
-    const freshUser = await fetchUser(); // O interceptor vai usar o token salvo acima
+    const freshUser = await fetchUser();
     setUser(freshUser);
     await AsyncStorage.setItem('@user', JSON.stringify(freshUser));
   }, []);
